@@ -24,5 +24,9 @@ export abstract class BasePage {
     async waitForPageLoad(): Promise<void> {
         await this.page.waitForLoadState('networkidle');
     }
+
+    async refreshPage(): Promise<void> {
+        await this.page.reload({ waitUntil: 'networkidle' });
+    }
 }
 

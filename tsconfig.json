@@ -4,7 +4,6 @@
     // File Layout
      "rootDir": "./src",
      "outDir": "./dist",     
-    "moduleResolution": "NodeNext",
      "paths": {
       "@base/*": ["./src/base/*"]
      },
@@ -14,7 +13,6 @@
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
-    "module": "NodeNext",
     "target": "esnext",
     // For nodejs:
     // "lib": ["esnext"],

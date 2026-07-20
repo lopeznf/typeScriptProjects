@@ -23,7 +23,7 @@ export class LoginPage extends BasePage {
     }
 
     get errorMessage(): Locator {
-        return this.page.getByRole('alert');
+        return this.page.locator('div[id="error"]');
     }
 
     get rememberMeCheckbox(): Locator {
@@ -52,8 +52,13 @@ export class LoginPage extends BasePage {
         await this.forgotPasswordLink.click();
     }
 
-    async getErrorMessageText(): Promise<string> {
-        return await this.errorMessage.textContent() || '';
+    async isErrorMessageDisplayed(): Promise<boolean> {
+        return await this.errorMessage.isVisible();
+    }
+
+    async isExpectedErrorMessageDisplayed(expectedMessage: string): Promise<boolean> {
+        const actualMessage = await this.errorMessage.textContent();
+        return actualMessage?.trim() === expectedMessage;
     }
 
     async isRememberMeChecked(): Promise<boolean> {
