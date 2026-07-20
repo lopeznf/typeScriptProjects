@@ -1,10 +1,36 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test';
 
-export default defineConfig({
-  use: {
-    // Configure the static IP proxy globally
-    proxy: {
-      server: 'http://136.158.10.74,16.78.62.184' // Replace with your proxy server address
+// Path to the storage state file used by the authenticated project
+const STORAGE_STATE_PATH = 'tests/.auth/user.json';
+
+export default defineConfig({  
+  projects: [
+    {
+      name: 'setup',
+      testMatch: ['**/*auth.setup.ts'],
+      use: { 
+        storageState: undefined // No storage state for the setup project
+      }
+    },
+    {
+      name: 'chromium',
+        use: { 
+          ...devices['Desktop Chrome'], 
+          storageState: STORAGE_STATE_PATH // Path to the storage state file
+        },
+        dependencies: ['setup'] // Specify dependencies for this project
+    },
+    {
+      name: 'edge',
+        use: { 
+          ...devices['Desktop Edge'], 
+          storageState: STORAGE_STATE_PATH // Path to the storage state file
+        },
+        dependencies: ['setup'] // Specify dependencies for this project
     }
-  }
+  ],
+  outputDir: 'test-results/',
+  testDir: './tests',
+  timeout: 30000,
+  reporter: [['html', { open: 'never' }]]
 });

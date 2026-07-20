@@ -10,7 +10,7 @@ export abstract class BasePage {
     abstract get url(): string;
 
     async navigateTo(): Promise<void> {
-        await this.page.goto(this.url);
+        await this.page.goto(this.url, { waitUntil: 'domcontentloaded' });
     }
     
     get header(): Locator {
