@@ -14,6 +14,14 @@ export class DashboardPage extends BasePage {
         return this.page.locator('input[type="search"]');
     }
 
+    get viewProfileIcon(): Locator {
+        return this.page.locator('img[alt="user"]')
+    }
+
+    get loggedInUserLink(): Locator {
+        return this.page.locator('a[text()="Gel Laro"]');
+    }
+
     get appLauncherButton(): Locator {
         return this.page.locator('button[title="App Launcher"]');
     }
@@ -28,6 +36,10 @@ export class DashboardPage extends BasePage {
 
     async isGlobalSearchBarVisible(): Promise<boolean> {
         return await this.globalSearchBar.isVisible();
+    }
+
+    async clickViewProfileIcon(): Promise<void> {
+        await this.viewProfileIcon.click();
     }
 
     async isAppLauncherButtonVisible(): Promise<boolean> {

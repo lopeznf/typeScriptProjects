@@ -19,8 +19,12 @@ export class SalesLeadDetailsPage extends SalesPage {
         return this.page.locator(`lightning-menu-item[data-target-selection-name="${optionName}"]`);
     }
 
-    leadStatusTab(leadStatus: string): Locator {
+    leadStatusButton(leadStatus: string): Locator {
         return this.page.locator(`a[role="option"][title="${leadStatus}"]`);
+    }
+
+    finalizeLeadStatusButton(finalizeStatus: string): Locator {
+        return this.page.locator('span[text()="' + finalizeStatus + '"]');
     }
 
     async isUniqueSalesLeadIdCreated(): Promise<boolean> {  
@@ -36,8 +40,12 @@ export class SalesLeadDetailsPage extends SalesPage {
         }
     }
 
-    async clickLeadStatusTab(leadStatus: string): Promise<void> {
-        await this.leadStatusTab(leadStatus).click();
+    async clickLeadStatusButton(leadStatus: string): Promise<void> {
+        await this.leadStatusButton(leadStatus).click();
+    }
+
+    async clickFinalizeLeadStatusButton(finalizeStatus: string): Promise<void> {
+        this.finalizeLeadStatusButton(finalizeStatus);
     }
 
     async clickLeadMenuOption(leadMenuOption: string) {
