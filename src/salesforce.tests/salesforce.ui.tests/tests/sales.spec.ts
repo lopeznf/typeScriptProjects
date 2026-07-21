@@ -5,14 +5,14 @@ const STORAGE_STATE_PATH = 'tests/.auth/user.json';
 
 test.use({ storageState: STORAGE_STATE_PATH }); // Use saved session
 
-test.describe('Dashboard Tests', () => {
+test.describe('Sales App Tests', () => {
     let salesPage: SalesPage;
 
     test.beforeEach(async ({ page }) => {
         salesPage = new SalesPage(page);
     });
 
-    test('Verify App Launcher button is visible', async () => {
+    test('Verify Sales App is Accessible', async () => {
         salesPage.navigateTo();
         await salesPage.waitForPageLoad();
         await salesPage.clickAppLauncherButton();

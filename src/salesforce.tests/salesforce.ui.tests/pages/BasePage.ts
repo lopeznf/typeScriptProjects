@@ -22,11 +22,11 @@ export abstract class BasePage {
     }
 
     async waitForPageLoad(): Promise<void> {
-        await this.page.waitForLoadState('networkidle');
+        await this.page.waitForLoadState('domcontentloaded');
     }
 
     async refreshPage(): Promise<void> {
-        await this.page.reload({ waitUntil: 'networkidle' });
+        await this.page.reload({ waitUntil: 'domcontentloaded' });
     }
 }
 
