@@ -17,7 +17,7 @@ export class ConfirmedLeadConversionPage {
     }
 
     private opportunityNameLink(opportunityName: string): Locator {
-        return this.page.locator('a[title="' + opportunityName + '-"]');
+        return this.page.locator('//a[contains(title, "' + opportunityName + '-")]');
     }
 
     private opportunityAccountNameLink(accountName: string): Locator {

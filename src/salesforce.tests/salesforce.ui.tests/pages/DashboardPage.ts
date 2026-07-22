@@ -10,8 +10,17 @@ export class DashboardPage extends BasePage {
         return "https://orgfarm-78fa3008fa-dev-ed.develop.lightning.force.com/lightning";
     }
 
-    private  get globalSearchBar(): Locator {
+
+    private get globalSearchButton(): Locator {
+        return this.page.locator('button[type="button"][aria-label="Search"]');
+    }
+
+    private get globalSearchBar(): Locator {
         return this.page.locator('input[type="search"]');
+    }
+
+    private get globalSearchTypeDropdown(): Locator {
+        return this.page.locator('input[type="text"][aria-label="Search by object type"]');
     }
 
     private get viewProfileIcon(): Locator {
@@ -32,6 +41,17 @@ export class DashboardPage extends BasePage {
 
     private get salesAppMenuItem(): Locator {
         return this.page.locator('a[id="07pdL000005kD7fQAE"]');
+    }
+
+    async searchRecord(searchItem: string, recordType: string): Promise<void> {
+        await this.globalSearchButton.click();
+        await this.globalSearchTypeDropdown.fill(recordType);
+        await this.page.keyboard.press("ArrowDown");
+        await this.page.keyboard.press('Enter');
+        await this.page.keyboard.press('Tab');
+        await this.globalSearchBar.fill(searchItem);
+        await this.page.keyboard.press('Enter');
+        await this.waitForPageLoad();
     }
 
     async isGlobalSearchBarVisible(): Promise<boolean> {

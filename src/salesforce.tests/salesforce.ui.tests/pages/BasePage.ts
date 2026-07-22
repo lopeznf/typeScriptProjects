@@ -25,6 +25,10 @@ export abstract class BasePage {
         await this.page.waitForLoadState('domcontentloaded');
     }
 
+    async waitUntil(timeout: number): Promise<void> {
+        await this.page.waitForTimeout(timeout);
+    }
+
     async pressKeyboard(key: string): Promise<void> {
         await this.page.keyboard.press(key);
     }

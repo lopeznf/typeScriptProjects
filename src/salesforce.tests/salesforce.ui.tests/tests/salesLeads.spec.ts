@@ -56,6 +56,7 @@ test.describe(' App > Leads Tab Tests', () => {
 
     test('Verify Lead is Converted into an Opportunity', async () => {
         let defaultOpportunityStage = 'Prospecting';
+        let recordType = 'Opportunity';
         let opportunityOwnerUrl: string = '';
         let loggedInUserUrl: string = '';
 
@@ -64,6 +65,13 @@ test.describe(' App > Leads Tab Tests', () => {
         await leadDetailsPage.clickFinalizeLeadStatusButton();
         
         await convertLeadPage.clickConvertButton();
+
+        await leadDetailsPage.refreshPage();
+        await leadDetailsPage.searchRecord(company + '-', recordType);
+
+        await leadDetailsPage.waitUntil(30000);
+
+
 
         expect(await confirmedLeadConversionPage.isOpportunityCreated(company)).toBe(true);
         expect(await confirmedLeadConversionPage.isContactCreated(lastName)).toBe(true);
