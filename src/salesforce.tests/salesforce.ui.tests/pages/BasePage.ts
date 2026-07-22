@@ -13,16 +13,20 @@ export abstract class BasePage {
         await this.page.goto(this.url, { waitUntil: 'domcontentloaded' });
     }
     
-    get header(): Locator {
+    protected get header(): Locator {
         return this.page.getByRole('banner');
     }
 
-    get footer(): Locator {
+    protected get footer(): Locator {
         return this.page.locator('footer');
     }
 
     async waitForPageLoad(): Promise<void> {
         await this.page.waitForLoadState('domcontentloaded');
+    }
+
+    async pressKeyboard(key: string): Promise<void> {
+        await this.page.keyboard.press(key);
     }
 
     async refreshPage(): Promise<void> {

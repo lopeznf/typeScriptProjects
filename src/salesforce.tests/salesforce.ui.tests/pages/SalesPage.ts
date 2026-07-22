@@ -1,5 +1,5 @@
 import { Page, Locator } from "@playwright/test";
-import { DashboardPage } from '../pages/DashboardPage';
+import { DashboardPage } from './DashboardPage';
 
 export class SalesPage extends DashboardPage {
     constructor(page: Page) {

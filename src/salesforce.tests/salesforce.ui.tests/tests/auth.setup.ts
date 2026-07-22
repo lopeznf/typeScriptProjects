@@ -7,7 +7,8 @@ import fs from 'fs';
 import { DashboardPage } from '../pages/DashboardPage';
 
 const authFile = 'tests/.auth/user.json';
-const validUsername = "nflopezals.865b5fb05a82@agentforce.com";
+const validUsername = //"gelabind09@gmail.com";
+"nflopezals.865b5fb05a82@agentforce.com";
 const validPassword = "G3L@F0rc309!";
 
 setup('save authenticated state', async ({ page }) => {
@@ -16,7 +17,7 @@ setup('save authenticated state', async ({ page }) => {
   await loginPage.navigateTo();
   await loginPage.login(validUsername, validPassword);
 
-  await page.waitForTimeout(30000); // Enter Emailed Verification Code during this 30-second timeout
+  await page.waitForTimeout(30000); // Enter Emailed Verification Code during this 60-second timeout
 
   expect(await dashboardPage.isAppLauncherButtonVisible()).toBe(true); // Ensure the dashboard page is loaded by checking if App Launcher button is visible
 

@@ -10,27 +10,27 @@ export class DashboardPage extends BasePage {
         return "https://orgfarm-78fa3008fa-dev-ed.develop.lightning.force.com/lightning";
     }
 
-    get globalSearchBar(): Locator {
+    private  get globalSearchBar(): Locator {
         return this.page.locator('input[type="search"]');
     }
 
-    get viewProfileIcon(): Locator {
+    private get viewProfileIcon(): Locator {
         return this.page.locator('img[alt="user"]')
     }
 
-    get loggedInUserLink(): Locator {
-        return this.page.locator('a[text()="Gel Laro"]');
+    private get loggedInUserLink(): Locator {
+        return this.page.locator('//a[contains(href, "lightning/r/User")][class="profile-link-label"]');
     }
 
-    get appLauncherButton(): Locator {
+    private get appLauncherButton(): Locator {
         return this.page.locator('button[title="App Launcher"]');
     }
 
-    get appLauncherSearchInput(): Locator {
+    private get appLauncherSearchInput(): Locator {
         return this.page.getByPlaceholder('Search apps and items...');
     }
 
-    get salesAppMenuItem(): Locator {
+    private get salesAppMenuItem(): Locator {
         return this.page.locator('a[id="07pdL000005kD7fQAE"]');
     }
 
@@ -40,6 +40,11 @@ export class DashboardPage extends BasePage {
 
     async clickViewProfileIcon(): Promise<void> {
         await this.viewProfileIcon.click();
+    }
+
+    async getUserUrl(): Promise<string> {
+        const userUrl = await this.loggedInUserLink.getAttribute('href');
+        return userUrl ?? '';
     }
 
     async isAppLauncherButtonVisible(): Promise<boolean> {

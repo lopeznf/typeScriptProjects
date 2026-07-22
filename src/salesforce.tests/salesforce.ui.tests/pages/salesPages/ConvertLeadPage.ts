@@ -1,35 +1,35 @@
 import { Page, Locator } from "@playwright/test";
 
-export class ConvertSalesLeadPage {
+export class ConvertLeadPage {
     protected readonly page: Page;
 
     constructor(page: Page) {
         this.page = page;
     }
 
-    get createNewAccountOption(): Locator {
+    private get createNewAccountOption(): Locator {
         return this.page.locator('input[type="radio"][name^="Account"]');
     }
 
-    get newAccountNameInput(): Locator {
+    private get newAccountNameInput(): Locator {
         const createNewAccountOptionElementId = this.createNewAccountOption.getAttribute("id");
         return this.page.locator(`input[type="text"][id="${createNewAccountOptionElementId}"]`);
     }
 
-    get createNewContactOption(): Locator {
+    private get createNewContactOption(): Locator {
         return this.page.locator('input[type="radio"][name^="Contact"]');
     }
 
-    newContactButton(contactName: string): Locator {
+    private newContactButton(contactName: string): Locator {
         return this.page.locator('button[type="button"][title*="${contactName}"]');
     }
 
-    get convertButton(): Locator {
-        return this.page.getByText('Convert');
+    private get convertButton(): Locator {
+        return this.page.locator('//button[text()="Convert"]');
     }
     
-    get cancelButton(): Locator {
-        return this.page.getByText('Cancel');
+    private get cancelButton(): Locator {
+        return this.page.locator('//button[text()="Cancel"]');
     }
 
     async clickCreateNewAccountOption(): Promise<void> {
@@ -46,5 +46,13 @@ export class ConvertSalesLeadPage {
 
     async clickNewContactButton(contactName: string): Promise<void> {
         await this.newContactButton(contactName).click();
+    }
+
+    async clickConvertButton(): Promise<void> {
+        await this.convertButton.click();
+    }
+    
+    async clickCancelButton(): Promise<void> {
+        await this.cancelButton.click();
     }
 }

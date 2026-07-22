@@ -7,19 +7,19 @@ export class DeleteLeadPage {
         this.page = page;
     }
 
-    get deleteButton(): Locator {
+    private get deleteButton(): Locator {
         return this.page.locator('button[title="Delete"]');
     }
 
-    get cancelButton(): Locator {
+    private get cancelButton(): Locator {
         return this.page.locator('button[title="Cancel"]');
     }
 
     async confirmLeadDeletion(): Promise<void> {
-        this.deleteButton.click();
+        await this.deleteButton.click();
     }
 
     async cancelLeadDeletion(): Promise<void> {
-        this.cancelButton.click();
+        await this.cancelButton.click();
     }
 }

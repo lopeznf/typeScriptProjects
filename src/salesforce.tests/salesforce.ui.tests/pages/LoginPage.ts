@@ -10,27 +10,27 @@ export class LoginPage extends BasePage {
         return "https://orgfarm-78fa3008fa-dev-ed.develop.my.salesforce.com"
     }
 
-    get usernameInput(): Locator {
+    private get usernameInput(): Locator {
         return this.page.locator('input[id="username"]');
     }
 
-    get passwordInput(): Locator {
+    private get passwordInput(): Locator {
         return this.page.locator('input[id="password"]');
     }
 
-    get loginButton(): Locator {
+    private get loginButton(): Locator {
         return this.page.locator('input[id="Login"]');
     }
 
-    get errorMessage(): Locator {
+    private get errorMessage(): Locator {
         return this.page.locator('div[id="error"]');
     }
 
-    get rememberMeCheckbox(): Locator {
+    private get rememberMeCheckbox(): Locator {
         return this.page.locator('input[id="rememberUn"]');
     }
 
-    get forgotPasswordLink(): Locator {
+    private get forgotPasswordLink(): Locator {
         return this.page.locator('a[id="forgot_password_link"]');
     }
 
