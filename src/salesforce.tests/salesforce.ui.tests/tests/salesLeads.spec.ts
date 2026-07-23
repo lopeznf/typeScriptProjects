@@ -5,6 +5,7 @@ import { LeadDetailsPage } from '../pages/salesPages/LeadDetailsPage';
 import { ConvertLeadPage } from '../pages/salesPages/ConvertLeadPage';
 import { ConfirmedLeadConversionPage } from '../pages/salesPages/ConfirmedLeadConversionPage';
 import { OpportunityInfoPage } from '../pages/salesPages/OpportunityInfoPage';
+import { SearchResultsPage } from '../pages/SearchResultsPage';
 
 const STORAGE_STATE_PATH = 'tests/.auth/user.json';
 
@@ -17,6 +18,7 @@ test.describe(' App > Leads Tab Tests', () => {
     let convertLeadPage: ConvertLeadPage;
     let confirmedLeadConversionPage: ConfirmedLeadConversionPage;
     let opportunityInfoPage: OpportunityInfoPage;
+    let searchResultsPage: SearchResultsPage;
 
     let leadStatus: string;
     let lastName: string;
@@ -29,6 +31,7 @@ test.describe(' App > Leads Tab Tests', () => {
         convertLeadPage = new ConvertLeadPage(page);
         confirmedLeadConversionPage = new ConfirmedLeadConversionPage(page);
         opportunityInfoPage = new OpportunityInfoPage(page);
+        searchResultsPage = new SearchResultsPage(page);
 
         lastName = 'Auto' + (Math.random() + 1).toString(36).substring(7);
         company = 'Org' + (Math.random() + 1).toString(36).substring(7);
@@ -69,18 +72,19 @@ test.describe(' App > Leads Tab Tests', () => {
         await leadDetailsPage.refreshPage();
         await leadDetailsPage.searchRecord(company + '-', recordType);
 
+        // Check if Opportunity record exists
+        expect(searchResultsPage.isSearchRecordLinkVisible(company + '-')).toBeTruthy();
+
+        // Check if Account record exists
+        expect(searchResultsPage.isSearchRecordTextVisible(company)).toBeTruthy();
+
+        await searchResultsPage.clickSearchRecordLink(company + '-');
+
         await leadDetailsPage.waitUntil(30000);
 
+        expect(await opportunityInfoPage.isContactLinkVisible(lastName)).toBeTruthy();
 
-
-        expect(await confirmedLeadConversionPage.isOpportunityCreated(company)).toBe(true);
-        expect(await confirmedLeadConversionPage.isContactCreated(lastName)).toBe(true);
-
-        await confirmedLeadConversionPage.clickOpportunityNameLink(company);
-        await opportunityInfoPage.waitForPageLoad();
-        expect(await opportunityInfoPage.isAccountNameInputVisible(company));
-
-        expect(await opportunityInfoPage.isStageAsExpected(defaultOpportunityStage));
+        expect(await opportunityInfoPage.isStageAsExpected(defaultOpportunityStage)).toBeTruthy();
 
         opportunityInfoPage.getOwnerUrl().then((value: string) => {
             opportunityOwnerUrl = value;
@@ -94,6 +98,6 @@ test.describe(' App > Leads Tab Tests', () => {
 
         expect(opportunityOwnerUrl === loggedInUserUrl, 'Owner URL (' 
             + opportunityOwnerUrl + ') is different from User URL ('
-            + loggedInUserUrl + ').')
+            + loggedInUserUrl + ').');
     });
 });

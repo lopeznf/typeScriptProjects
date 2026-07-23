@@ -1,5 +1,6 @@
 import { Page, Locator } from "@playwright/test";
 import { SalesPage } from "../SalesPage";
+import { promises } from "node:dns";
 
 export class OpportunityInfoPage extends SalesPage{
     constructor(page: Page) {
@@ -28,6 +29,10 @@ export class OpportunityInfoPage extends SalesPage{
 
     private get editAccountNameIcon(): Locator {
         return this.page.locator('button[title="Edit Account Name"]');
+    }
+
+    private contactLink(contactName: string): Locator {
+        return this.page.locator('a[text(), "' + contactName + '"]')
     }
 
     private accountNameInput(accountName: string): Locator {
@@ -66,6 +71,10 @@ export class OpportunityInfoPage extends SalesPage{
 
     async isAccountNameInputVisible(accountName: string): Promise<boolean> {
         return this.accountNameInput(accountName).isVisible();
+    }
+
+    async isContactLinkVisible(contactName: string): Promise<boolean> {
+        return this.contactLink(contactName).isVisible();
     }
     
     async clickChatterTab(): Promise<void> {

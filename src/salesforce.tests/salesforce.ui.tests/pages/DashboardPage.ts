@@ -16,7 +16,7 @@ export class DashboardPage extends BasePage {
     }
 
     private get globalSearchBar(): Locator {
-        return this.page.locator('input[type="search"]');
+        return this.page.locator('input[placeholder="Search..."]');
     }
 
     private get globalSearchTypeDropdown(): Locator {
